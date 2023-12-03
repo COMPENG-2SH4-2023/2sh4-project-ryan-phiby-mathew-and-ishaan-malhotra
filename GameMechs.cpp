@@ -15,14 +15,9 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false;
     boardSizeX = boardX;
     boardSizeY = boardY;
-    input = 0;
-    exitFlag = false;
-    boardSizeX = boardX;
-    boardSizeY = boardY;
 }
 
 // do you need a destructor?
-
 
 
 bool GameMechs::getExitFlagStatus()
@@ -63,4 +58,23 @@ void GameMechs::setInput(char this_input)
 void GameMechs::clearInput()
 {
     input = 0;
+}
+
+void GameMechs::generateFood(objPos blockOff)
+{
+    srand(static_cast<unsigned>(time(nullptr)));
+
+    // Generate a random position for the food, excluding the player position
+    do
+    {
+        foodPos.x = rand() % (boardSizeX - 2) + 1;  // Excluding borders
+        foodPos.y = rand() % (boardSizeY - 2) + 1;  // Excluding borders
+    } while (foodPos.x == blockOff.x && foodPos.y == blockOff.y);
+
+    foodPos.symbol = '*';  // You can change the symbol as needed
+}
+
+void GameMechs::getFoodPos(objPos &returnPos)
+{
+    returnPos = foodPos;
 }

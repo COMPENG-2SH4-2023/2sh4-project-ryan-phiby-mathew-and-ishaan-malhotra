@@ -26,7 +26,7 @@ void objPosArrayList::insertHead(objPos thisPos)
     {
         return;
     }
-
+    
     for (int i = sizeList; i > 0; i--)
     {
         aList[i].setObjPos(aList[i - 1]);

@@ -48,7 +48,13 @@ void Initialize(void)
 
     myGM = new GameMechs(30, 10);
     myplayer = new Player(myGM);
+
+    // Pass the head element to generateFood
+    objPos headElement;
+    myplayer->getPlayerPos()->getHeadElement(headElement);
+    myGM->generateFood(headElement);
 }
+
 
 void GetInput(void)
 {
@@ -62,7 +68,6 @@ void RunLogic(void)
 {
     if (myGM->getInput() != 0)  // if not null character
     {
-
         if (myGM->getInput() == 27) {
             myGM->setExitTrue();
         } else {
@@ -72,7 +77,24 @@ void RunLogic(void)
     }
 
     myplayer->movePlayer();
+
+    // Get the head position from the player's position list
+    objPosArrayList* playerBody = myplayer->getPlayerPos();
+    objPos headPos;
+    playerBody->getHeadElement(headPos);
+
+    // Check if the head position matches the food position
+    objPos foodPos;
+    myGM->getFoodPos(foodPos);
+
+    if (headPos.x == foodPos.x && headPos.y == foodPos.y)
+    {
+        // Handle collision with food (e.g., increase score, generate new food)
+        myGM->generateFood(headPos);
+    }
 }
+
+
 
 void DrawScreen(void)
 {
@@ -82,12 +104,25 @@ void DrawScreen(void)
     objPosArrayList* playerBody = myplayer->getPlayerPos();
     objPos tempBody;
 
+    // Get the food position
+    objPos foodPos;
+    myGM->getFoodPos(foodPos);
+
     for(int i = 0; i < myGM->getBoardSizeY(); i++)
     {
         for (int j = 0; j < myGM->getBoardSizeX(); j++)
         {
             drawn = false;
             int isBorder = (i == 0 || i == myGM->getBoardSizeY() - 1 || j == 0 || j == myGM->getBoardSizeX() - 1);
+
+            // Check if the current position matches the food position
+            if (foodPos.x == j && foodPos.y == i)
+            {
+                MacUILib_printf("%c", foodPos.symbol);
+                drawn = true;
+            }
+
+            // Check if the current position matches any part of the player's body
             for (int k = 0; k < playerBody->getSize(); k++)
             {
                 playerBody->getElement(tempBody, k);
@@ -100,11 +135,12 @@ void DrawScreen(void)
             }
 
             if(drawn) continue;
+
+            // If no food or player body, print the border or empty space
             if (isBorder) 
             {
                 MacUILib_printf("#");
             } 
-            
             else 
             {
                 MacUILib_printf(" ");
@@ -112,8 +148,8 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    
 }
+
 
 void LoopDelay(void)
 {

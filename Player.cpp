@@ -22,19 +22,6 @@ Player::Player(GameMechs* thisGMRef)
     playerPosList->insertHead(tempPos);
     playerPosList->insertHead(tempPos);
     playerPosList->insertHead(tempPos);
-    //playerPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, 'X');
-    objPos tempPos;
-    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, 'X');
-    
-    playerPosList = new objPosArrayList();
-    playerPosList->insertHead(tempPos);
-
-    //for debugging inserting another 4 segments
-
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
 }
 
 
@@ -42,57 +29,16 @@ Player::~Player()
 {
     // delete any heap members here
     delete playerPosList;
-    delete playerPosList;
 }
 
 objPosArrayList* Player::getPlayerPos()
 {
     // return the reference to the playerPos arrray list
     return playerPosList;
-    return playerPosList;
 }
 
 void Player::updatePlayerDir()
 {
-    // PPA3 input processing logic
-    char input = mainGameMechsRef->getInput();
-
-    switch(input)
-    {
-        case 'W':
-        case 'w':
-            if (myDir != DOWN) {
-                myDir = UP;
-            }
-            break;
-
-        case 'A':
-        case 'a':
-            if (myDir != RIGHT) {
-                myDir = LEFT;
-            }
-            break;
-
-        case 'D':
-        case 'd':
-            if (myDir != LEFT) {
-                myDir = RIGHT;
-            }
-            break;
-        
-        case 'S':
-        case 's':
-            if (myDir != UP) {
-                myDir = DOWN;
-            }
-            break;
-        case 27:
-            mainGameMechsRef->setExitTrue();
-        default:
-            break;
-    }   
-    input = 0;
-    
     // PPA3 input processing logic
     char input = mainGameMechsRef->getInput();
 
