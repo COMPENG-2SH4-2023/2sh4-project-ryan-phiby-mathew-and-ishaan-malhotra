@@ -94,6 +94,8 @@ void RunLogic(void)
         myGM->incrementScore();
         playerBody->insertHead(headPos);
     }
+    
+    
 }
 
 
@@ -151,11 +153,12 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf("Score: %d", myGM->getScore());
+    playerBody->getHeadElement(tempBody);
+
+    MacUILib_printf("Score: %d\n", myGM->getScore());
+    MacUILib_printf("Player Position: (%d, %d)\n", tempBody.x, tempBody.y);
+
     
-    if (myGM->getLoseFlagStatus() == true || myGM->getExitFlagStatus() == true) {
-        MacUILib_printf("You Lose!");
-    }
 }
 
 
@@ -168,7 +171,9 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
-  
+    if (myGM->getLoseFlagStatus() == true || myGM->getExitFlagStatus() == true) {
+        MacUILib_printf("You Lose! You Scored: %d", myGM->getScore());
+    }
     MacUILib_uninit();
 
     delete myGM;

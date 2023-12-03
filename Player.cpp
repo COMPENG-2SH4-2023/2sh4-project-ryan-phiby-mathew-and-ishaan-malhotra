@@ -86,13 +86,13 @@ void Player::movePlayer()
     {
         case LEFT:
             currHead.x--;
-            if (currHead.x <= 0) {
+            if (currHead.x == 0) {
                 currHead.x = mainGameMechsRef->getBoardSizeX() - 2;
             }
             break;
         case RIGHT:
             currHead.x++;
-            if (currHead.x >= mainGameMechsRef->getBoardSizeX() - 2) {
+            if (currHead.x == mainGameMechsRef->getBoardSizeX() - 1) {
                 currHead.x = 1;
             }
             break;
