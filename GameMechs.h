@@ -28,6 +28,11 @@ class GameMechs
         int boardSizeY;
 
         objPos foodPos;
+        objPos specialFood;   
+        int specialFoodEffect;  
+        //objPosArrayList regularFoods;
+        objPosArrayList foodPosList;
+
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
@@ -45,8 +50,18 @@ class GameMechs
         int getBoardSizeX();
         int getBoardSizeY();
 
+        //int getRegularFoodCount();
+        //void getRegularFoodPos(objPos& returnPos, int index);
+        //bool hasSpecialFood();
+        //void getSpecialFoodPos(objPos& returnPos);
+        
         void generateFood(objPos blockOff);
+        //void generateFood(objPosArrayList& snakeBody);
         void getFoodPos(objPos &returnPos);
+        
+        //void updateGameState();
+        //void generateRegularFood();
+        //void generateSpecialFood();
 
         int getScore();
         void incrementScore();

@@ -1,5 +1,6 @@
 #include "Player.h"
 
+// initializing instances
 objPos playerPos;
 objPosArrayList* playerPosList;
 
@@ -8,15 +9,11 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    // more actions to be included
-    //playerPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, 'X');
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, 'X');
     
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
-
-    //for debugging inserting another 4 segments
 
 }
 
@@ -122,6 +119,7 @@ void Player::movePlayer()
         {
             // Snake collided with itself
             mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
             return;
         }
     }

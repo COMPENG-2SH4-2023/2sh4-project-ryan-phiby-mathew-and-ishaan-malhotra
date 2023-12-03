@@ -9,10 +9,12 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
+// Creating Global references to access each class
+
 Player* myplayer;
 GameMechs* myGM;
-objPos myPos;
 
+// Routine Prototypes
 
 void Initialize(void);
 void GetInput(void);
@@ -22,13 +24,13 @@ void LoopDelay(void);
 void CleanUp(void);
 
 
-
+// Main
 int main(void)
 {
 
     Initialize();
 
-    while(myGM->getExitFlagStatus() == false)  
+    while(myGM->getExitFlagStatus() == false) 
     {
         GetInput();
         RunLogic();
@@ -45,9 +47,10 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
+  
+    myGM = new GameMechs(30, 10);  // initializing game board
 
-    myGM = new GameMechs(30, 10);
-    myplayer = new Player(myGM);
+    myplayer = new Player(myGM);   //initializing player
 
     // Pass the head element to generateFood
     objPos headElement;
@@ -68,9 +71,12 @@ void RunLogic(void)
 {
     if (myGM->getInput() != 0)  // if not null character
     {
-        if (myGM->getInput() == 27) {
+        if (myGM->getInput() == 27) // Exit conditon is ESC
+        {
             myGM->setExitTrue();
-        } else {
+        } 
+        else 
+        {
             myplayer->updatePlayerDir();
         }
         myGM->clearInput();
@@ -83,7 +89,7 @@ void RunLogic(void)
     objPos headPos;
     playerBody->getHeadElement(headPos);
 
-    // Check if the head position matches the food position
+    // Check if the head position matches the food position (collision detection)
     objPos foodPos;
     myGM->getFoodPos(foodPos);
 
@@ -104,9 +110,9 @@ void DrawScreen(void)
 {
     
     MacUILib_clearScreen();
-    bool drawn;
+    bool drawn;  // drawing flag
 
-    objPosArrayList* playerBody = myplayer->getPlayerPos();
+    objPosArrayList* playerBody = myplayer->getPlayerPos();  // initializing objPos list
     objPos tempBody;
 
     // Get the food position
@@ -118,13 +124,14 @@ void DrawScreen(void)
         for (int j = 0; j < myGM->getBoardSizeX(); j++)
         {
             drawn = false;
+            // initializing isBorder variable for border printing
             int isBorder = (i == 0 || i == myGM->getBoardSizeY() - 1 || j == 0 || j == myGM->getBoardSizeX() - 1);
 
             // Check if the current position matches the food position
             if (foodPos.x == j && foodPos.y == i)
             {
-                MacUILib_printf("%c", foodPos.symbol);
-                drawn = true;
+                MacUILib_printf("%c", foodPos.symbol);  // printf symbol over food
+                drawn = true;                           // set flag t true to prevent further printing
             }
 
             // Check if the current position matches any part of the player's body
@@ -155,6 +162,7 @@ void DrawScreen(void)
     }
     playerBody->getHeadElement(tempBody);
 
+    // Display of Score and Player position
     MacUILib_printf("Score: %d\n", myGM->getScore());
     MacUILib_printf("Player Position: (%d, %d)\n", tempBody.x, tempBody.y);
 
@@ -171,8 +179,14 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
-    if (myGM->getLoseFlagStatus() == true || myGM->getExitFlagStatus() == true) {
+
+    // Check if the player lost but eating into body
+    if (myGM->getLoseFlagStatus() == true && myGM->getExitFlagStatus() == true) {
         MacUILib_printf("You Lose! You Scored: %d", myGM->getScore());
+    }
+    else
+    {
+        MacUILib_printf("Game Ended. You Scored: %d", myGM->getScore());
     }
     MacUILib_uninit();
 
