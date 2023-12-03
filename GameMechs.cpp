@@ -5,16 +5,20 @@ GameMechs::GameMechs()
 {
     input = 0;
     exitFlag = false;
+    loseFlag = false;
     boardSizeX = 20;
     boardSizeY = 10;
+    score=0;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
     input = 0;
     exitFlag = false;
+    loseFlag = false;
     boardSizeX = boardX;
     boardSizeY = boardY;
+    score=0;
 }
 
 // do you need a destructor?
@@ -23,6 +27,11 @@ GameMechs::GameMechs(int boardX, int boardY)
 bool GameMechs::getExitFlagStatus()
 {
    return exitFlag;
+}
+
+bool GameMechs::getLoseFlagStatus()
+{
+   return loseFlag;
 }
 
 char GameMechs::getInput()
@@ -46,6 +55,11 @@ int GameMechs::getBoardSizeY()
 
 
 void GameMechs::setExitTrue()
+{
+    exitFlag = true;
+}
+
+void GameMechs::setLoseFlag()
 {
     exitFlag = true;
 }
@@ -77,4 +91,14 @@ void GameMechs::generateFood(objPos blockOff)
 void GameMechs::getFoodPos(objPos &returnPos)
 {
     returnPos = foodPos;
+}
+
+int GameMechs::getScore() 
+{
+    return score;
+}
+
+void GameMechs::incrementScore() 
+{
+    ++score;
 }

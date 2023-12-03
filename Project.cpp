@@ -91,6 +91,8 @@ void RunLogic(void)
     {
         // Handle collision with food (e.g., increase score, generate new food)
         myGM->generateFood(headPos);
+        myGM->incrementScore();
+        playerBody->insertHead(headPos);
     }
 }
 
@@ -98,6 +100,7 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
+    
     MacUILib_clearScreen();
     bool drawn;
 
@@ -147,6 +150,11 @@ void DrawScreen(void)
             }
         }
         MacUILib_printf("\n");
+    }
+    MacUILib_printf("Score: %d", myGM->getScore());
+    
+    if (myGM->getLoseFlagStatus() == true || myGM->getExitFlagStatus() == true) {
+        MacUILib_printf("You Lose!");
     }
 }
 

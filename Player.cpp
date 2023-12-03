@@ -18,10 +18,6 @@ Player::Player(GameMechs* thisGMRef)
 
     //for debugging inserting another 4 segments
 
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
 }
 
 
@@ -113,12 +109,23 @@ void Player::movePlayer()
             }
             break;
         case STOP:
-
         default:
             break;
     }
 
+    // Check for self-collision
+    for (int i = 1; i < playerPosList->getSize(); i++)
+    {
+        objPos bodyPart;
+        playerPosList->getElement(bodyPart, i);
+        if (currHead.x == bodyPart.x && currHead.y == bodyPart.y)
+        {
+            // Snake collided with itself
+            mainGameMechsRef->setLoseFlag();
+            return;
+        }
+    }
+
     playerPosList->insertHead(currHead);
     playerPosList->removeTail();
-
 }
