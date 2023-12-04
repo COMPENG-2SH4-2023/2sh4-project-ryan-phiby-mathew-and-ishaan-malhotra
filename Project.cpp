@@ -162,7 +162,7 @@ void DrawScreen(void)
     }
     playerBody->getHeadElement(tempBody);
 
-    // Display of Score and Player position
+    // Display Score
     MacUILib_printf("Score: %d\n", myGM->getScore());
 }
 
