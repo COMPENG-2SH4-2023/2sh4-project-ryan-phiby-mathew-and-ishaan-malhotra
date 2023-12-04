@@ -12,18 +12,17 @@ objPosArrayList::objPosArrayList()
 
 objPosArrayList::~objPosArrayList()
 {
-    delete[] aList;
+    delete[] aList;  // deallocates for each instance withing array
 }
 
-int objPosArrayList::getSize()
+int objPosArrayList::getSize() // return size of list
 {
     return sizeList;
 }
 
-void objPosArrayList::insertHead(objPos thisPos)
+void objPosArrayList::insertHead(objPos thisPos) // check if list is already at maximum capacity, if so return
 {
-    //Shifts elements to allow for new head
-    if (sizeList == ARRAY_MAX_CAP)
+    if (sizeList == ARRAY_MAX_CAP) 
     {
         return;
     }
@@ -37,18 +36,18 @@ void objPosArrayList::insertHead(objPos thisPos)
     sizeList++;
 }
 
-void objPosArrayList::insertTail(objPos thisPos)
+void objPosArrayList::insertTail(objPos thisPos) // insert at tail of list
 {
-    if (sizeList == ARRAY_MAX_CAP)
+    if (sizeList == ARRAY_MAX_CAP)  // check if list is already at maximum capacity, if so return
     {
         return;
     }
     aList[sizeList++].setObjPos(thisPos);
 }
 
-void objPosArrayList::removeHead()
+void objPosArrayList::removeHead() // remove from head
 {
-    if (sizeList == 0)
+    if (sizeList == 0) //check if list is already empty, if so return
     {
         return;
     }
@@ -59,28 +58,28 @@ void objPosArrayList::removeHead()
     sizeList--;
 }
 
-void objPosArrayList::removeTail()
+void objPosArrayList::removeTail() // remove from tail
 {
-    if (sizeList == 0)
+    if (sizeList == 0) //check if list is already empty, if so return
     {
         return;
     }
     sizeList--;
 }
 
-void objPosArrayList::getHeadElement(objPos &returnPos)
+void objPosArrayList::getHeadElement(objPos &returnPos) // returns head elemnt
 {
     returnPos.setObjPos(aList[0]);
 }
 
-void objPosArrayList::getTailElement(objPos &returnPos)
+void objPosArrayList::getTailElement(objPos &returnPos)  // return tail element
 {
-    returnPos.setObjPos(aList[sizeList - 1]);
+    returnPos.setObjPos(aList[sizeList - 1]); 
 }
 
 void objPosArrayList::getElement(objPos &returnPos, int index)
 {
-    if (sizeList == 0 || index < 0 || index >= sizeList)
+    if (sizeList == 0 || index < 0 || index >= sizeList) // out of bounds index
     {
         return;
     }
