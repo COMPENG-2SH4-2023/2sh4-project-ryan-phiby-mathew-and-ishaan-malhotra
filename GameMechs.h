@@ -12,12 +12,6 @@ using namespace std;
 
 class GameMechs
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
     private:
         char input;
         bool exitFlag;
@@ -30,7 +24,6 @@ class GameMechs
         objPos foodPos;
         objPos specialFood;   
         int specialFoodEffect;  
-        //objPosArrayList regularFoods;
         objPosArrayList foodPosList;
 
     public:
@@ -49,20 +42,10 @@ class GameMechs
 
         int getBoardSizeX();
         int getBoardSizeY();
-
-        //int getRegularFoodCount();
-        //void getRegularFoodPos(objPos& returnPos, int index);
-        //bool hasSpecialFood();
-        //void getSpecialFoodPos(objPos& returnPos);
         
         void generateFood(objPos blockOff);
-        //void generateFood(objPosArrayList& snakeBody);
         void getFoodPos(objPos &returnPos);
         
-        //void updateGameState();
-        //void generateRegularFood();
-        //void generateSpecialFood();
-
         int getScore();
         void incrementScore();
 };

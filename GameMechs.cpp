@@ -21,8 +21,6 @@ GameMechs::GameMechs(int boardX, int boardY)
     score=0;
 }
 
-// do you need a destructor?
-
 
 bool GameMechs::getExitFlagStatus()
 {
@@ -85,20 +83,23 @@ void GameMechs::generateFood(objPos blockOff)
         foodPos.y = rand() % (boardSizeY - 2) + 1;  // Excluding borders
     } while (foodPos.x == blockOff.x && foodPos.y == blockOff.y);
 
-    foodPos.symbol = '*';  // You can change the symbol as needed
+    foodPos.symbol = '*';  
 }
 
 void GameMechs::getFoodPos(objPos &returnPos)
 {
+    //function to get the position of food 
     returnPos = foodPos;
 }
 
 int GameMechs::getScore() 
 {
+    //function to return score
     return score;
 }
 
 void GameMechs::incrementScore() 
 {
+    //function to increment score
     ++score;
 }

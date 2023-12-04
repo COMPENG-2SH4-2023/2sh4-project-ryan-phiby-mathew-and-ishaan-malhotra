@@ -61,7 +61,7 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    myGM->getInput();
+    myGM->getInput(); //Accessing the getInput function in the GameMechanics file
     if (MacUILib_hasChar()) {
         myGM->setInput(MacUILib_getChar());
     }
@@ -95,7 +95,7 @@ void RunLogic(void)
 
     if (headPos.x == foodPos.x && headPos.y == foodPos.y)
     {
-        // Handle collision with food (e.g., increase score, generate new food)
+        // Handle collision with food (increase score and snake size, generate new food)
         myGM->generateFood(headPos);
         myGM->incrementScore();
         playerBody->insertHead(headPos);
@@ -164,9 +164,6 @@ void DrawScreen(void)
 
     // Display of Score and Player position
     MacUILib_printf("Score: %d\n", myGM->getScore());
-    MacUILib_printf("Player Position: (%d, %d)\n", tempBody.x, tempBody.y);
-
-    
 }
 
 

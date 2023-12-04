@@ -22,6 +22,7 @@ int objPosArrayList::getSize()
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
+    //Shifts elements to allow for new head
     if (sizeList == ARRAY_MAX_CAP)
     {
         return;
